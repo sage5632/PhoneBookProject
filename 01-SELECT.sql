@@ -147,6 +147,128 @@ SELECT first_name, salary
 FROM employees
 WHERE first_name LIKE '__a_';
 
+-- ORDER BY : 정렬
+-- ASC (오름차순, 기본)
+-- DESC (내림차순, 큰것 -> 작은것순)
+-- 부서번호를 오름차순  급여, 이름
+SELECT DEPARTMENT_ID, salary, first_name
+FROM employees
+ORDER BY department_id;
+
+-- 급여가 10000 이상인 직원의 이름, 급여를 내림차순
+SELECT first_name, salary
+FROM employees
+WHERE salary >= 10000
+ORDER BY salary DESC;
+
+-- 부서 번호, 급여, 이름순으로 출력하되, 부서번호 오름, 급여 내림차순
+SELECT department_id, salary, first_name
+FROM employees
+ORDER BY department_id, salary DESC;
+
+-- 문제 1 : 입사일 (오름차순), 이름 월급 전화번호 입사일 "이름","월급","전화번호","입사일"
+SELECT first_name "이름" , salary "월급", phone_number "전화번호", hire_date "입사일"
+FROM employees
+ORDER BY hire_date;
+
+-- 문제 2: 업무별로 업무이름과 최고월급을 월급의 내림차순으로 정렬
+SELECT JOB_TITLE, MAX_SALARY
+from jobs
+ORDER BY MAX_SALARY DESC;
+
+-- 문제 3: 담당매니저가 배정되어있으나 커미션 비율이 없고 월급이 3000초과인 직원의 이름, 매니저아이디, 커미션비율, 월급을 출력하세요
+SELECT first_name, MANAGER_id,commission_pct, 0, salary
+FROM employees
+WHERE  salary > 3000 and manager_id is not null and commission_pct is null;
+
+-- 문제 4: 최고월급이 10000이상인 업무의 이름과 최고월급을 최고월급의 내림차순
+SELECT JOB_TITLE, MAX_SALARY 
+from jobs
+WHERE MAX_SALARY >= 10000
+ORDER BY MAX_SALARY DESC;
+
+-- 문제 5: 월급이 14000 미만 10000 이상인 직원이름,월급,커미션퍼센트를 월급의 내림차순, 커미션포인트가 null이면 0으로 표현.
+SELECT first_name, salary, nvl(commission_pct,0)
+from employees
+WHERE salary >= 10000 and salary < 14000
+ORDER BY salary desc;
+
+-- 문제 6 : 부서번호가 10,90,100인 직원의 이름,월급,입사일, 부서번호를 나타내시오 입사일은 1997-12와 같이 표현
+SELect first_name,salary,hire_date, department_id
+from employees
+where department_id in  (10,90,100);
+
+----------------
+-- 단일행 함수 : 레코드를 입력으로 받음
+----------------
+
+-- 문자열 단일행 함수
+SELECT first_name, last_name,
+    CONCAT(first_name, CONCAT ('' , last_name)),
+    INITCAP(first_name || '' || last_name),
+    LOWER(first_name),
+    UPPER(first_name),
+    LPAD(first_name, 20, '*'), -- 20자리 확보, 왼쪽으로 *로 채움
+    RPAD(first_name, 20, '*') -- 20자리 확보, 오른쪽을 *로 채움
+    
+From Employees;
+
+SELECT '        Oracle             ',
+'****************Database****************'
+FROM dual;
+
+SELECT LTRIM('        Oracle             '), -- 왼쪽 공백 제거
+    RTRIM('        Oracle             '), -- 오른쪽 공백 제거
+    TRIM('*' FROM '****************Database****************'), -- 양쪽의 지정된 문자제거
+    SUBSTR ('Oracle Database', 8,4), -- 8번째 글자부터 4글자
+    SUBSTR ('Oracle Database', -8, 4) -- 뒤에서 8번째 글자부터 4글자
+FROM Dual;
+
+-- 수치형 단일행 함수
+SELECT ABS(-3.14), -- 절대값
+    CEIL(3.14), -- 소숫점 올림 (천정)
+    FLOOR(3.14), -- 소숫점 버림 (바닥)
+    MOD(7,3), -- 나머지
+    POWER(2, 4), -- 제곱
+    ROUND(3.5), -- 반올림
+    ROUND(3.4567,2), -- 소숫점 2번째자리까지 반올림
+    TRUNC(3.5), -- 버림
+    TRUNC(3.4567,2) -- 소숫점 2번쨰자리에서 버림
+    FROM dual;
+    
+    -------------
+    -- DATE Format
+    -------------
+    
+    -- 날짜형식확인
+    SELECT * FROM nls_session_parameters
+    WHERE parameter = 'NLS_DATE_FORMAT';
+    
+    -- 현재 날짜와 시간
+    SELECT sysdate
+    FROM dual;
+    
+    SELECT sysdate
+    FROM employees;
+    
+    -- DATE 관련 함수
+    SELECT sysdate, -- 현재 날짜와 시간
+    ADD_MONTHS(sysdate, 2), -- 2개월 후의 날짜
+    MONTHS_BETWEEN('99/12/31', sysdate)
+    FROM dual;
+    
+    SELECT sysdate, -- 현재 날짜와 시간
+    ADD_MONTHS(sysdate, 2), -- 2개월 후의 날짜
+    MONTHS_BETWEEN('99/12/31', sysdate),
+    NEXT_DAY(sysdate, 7), -- 현재 날짜 이후의 첫번째 7요일
+    ROUND(TO_DATE('2021-05-17','YYYY-MM-DD'), 'MONTH'), -- MONTH 정보로 반올림
+    TRUNC(TO_DATE('2021-05-17', 'YYYY-MM-DD'),'MONTH')
+    FROM dual;
+    
+    -- 현재 날짜 기준, 입사한지 몇 개월 지났는가?
+    SELECT first_name, hire_date, ROUND(MONTHS_BETWEEN(sysdate, hire_date))
+    FROM employees;
+
 
 
 
