@@ -176,3 +176,18 @@ SELECT emp.employee_id,
     man.first_name
 FROM employees emp, employees man
 WHERE emp.manager_id = man.employee_id (+) ;
+
+--문제 1 : 사번 이름 성과 부서명을 조회하여 부서이름 오름차순 사번 내림차순으로 정렬
+
+SELECT employee_id,first_name, department_name
+from employees, departments
+ORDER BY department_name asc, employee_id DESC;
+
+--문제 2: 직원들의 사번 이름 급여 부서명 현재업무를 사번 오름차순으로 정렬하세요 부서가없는 178은 표시X
+SELECT emp.EMPLOYEE_ID, emp.First_name, emp.salary, dept.DEPARTMENT_NAME, jb.job_title
+FROM employees emp, departments dept, jobs jb
+
+ORDER BY EMPLOYEE_ID asc;
+
+-- 문제 3: 도시아이디 , 도시명, 부서명, 부서아이디를 도서아이디(오름차순) 정렬 출력.
+SELECT co.country_id , 
