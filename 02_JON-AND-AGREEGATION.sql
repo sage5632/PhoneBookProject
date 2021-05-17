@@ -491,5 +491,7 @@ FROM employees emp, departments dept, jobs jb
 
 ORDER BY EMPLOYEE_ID asc;
 
--- 문제 3: 도시아이디 , 도시명, 부서명, 부서아이디를 도서아이디(오름차순) 정렬 출력.
-SELECT co.country_id , 
+-- 문제 3: 도시아이디 , 도시명, 부서명, 부서아이디를 도시아이디(오름차순) 정렬 출력.
+SELECT country_id , country_name, department_name, department_id
+FROM countries, departments
+ORDER BY country_id asc;
