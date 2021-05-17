@@ -99,7 +99,7 @@ DESC book;
 CREATE TABLE author (
     author_id NUMBER(10),
     author_name VARCHAR2(100) NOT NULL, -- 컬럼 제약 조건 NOT NULL
-    authro_desc VARCHAR2(500),
+    author_desc VARCHAR2(500),
     PRIMARY KEY (author_id) -- 테이블 제약 조건
 );
 DESC book;
@@ -151,3 +151,4 @@ SELECT constraint_name,
     search_condition
 FROM USER_CONSTRAINTS
 WHERE table_name = 'BOOK';
+
