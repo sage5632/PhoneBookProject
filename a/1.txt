@@ -1,7 +1,0 @@
-Manipulation
-Data Manipulation Language(DML)
-	- SELECT, INSERT, UPDATE, DELETE
-Date Definition Language(DDL)
-	- CRATE, ALTER ...
-Data Control Language(DCL)
-	-
