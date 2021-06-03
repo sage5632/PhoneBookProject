@@ -9,13 +9,14 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class PhoneDAOImpl implements PhoneDAO {
 	private Connection getConnection() throws SQLException {
 		Connection conn = null;
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-			String dburl = "jdbc:oracle:thin:@localhost:1521:xe";
-			conn = DriverManager.getConnection(dburl,"c##bitsuer","bituser");
+			String DBURL = "jdbc:oracle:thin:@localhost:1521:xe";
+			conn = DriverManager.getConnection(DBURL,"C##bituser","bituser");
 		} catch(ClassNotFoundException e) {
 			System.err.println("드라이버 로드 실패!");
 		}
@@ -30,10 +31,10 @@ public class PhoneDAOImpl implements PhoneDAO {
 		
 		List<PhoneVO> list = new ArrayList<>();
 		try {
-			conn = getConnection();
-			stmt = conn.createStatement(); 
+			conn = getConnection(); 
+			stmt = conn.createStatement();
 	 		
-			String sql = "Select id, Name, Hp, Tel " + "From PHONE_BOOK";
+			String sql = "Select id, Name, Hp, Tel " + "From PHONE_BOOK order by id";
 			rs = stmt.executeQuery(sql);
 			
 			while(rs.next()) {
@@ -99,7 +100,7 @@ public class PhoneDAOImpl implements PhoneDAO {
 }
 
 	@Override
-	public boolean insert(PhoneVO vo) {
+	public boolean insertphone(PhoneVO vo) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		int insertedCount = 0;

@@ -61,7 +61,7 @@ public class PhoneBookAPP {
 				PhoneVO vo = new PhoneVO(null, Name, Hp, Tel);
 				PhoneDAO dao = new PhoneDAOImpl();
 				
-				boolean success = dao.insert(vo);
+				boolean success = dao.insertphone(vo);
 				
 				System.out.println("[등록되었습니다.]");
 				
@@ -85,7 +85,7 @@ public class PhoneBookAPP {
 		String keyword = scanner.next();
 		
 		PhoneDAO dao = new PhoneDAOImpl();
-		List(PhoneVO) list = dao.search(keyword);
+		List<PhoneVO> list = dao.search(keyword);
 		
 		Iterator<PhoneVO> it = list.iterator();
 		
